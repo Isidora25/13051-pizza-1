@@ -1,7 +1,8 @@
 export const normalizeDough = (dough) => {
   return {
     ...dough,
-    value: dough.name === "Тонкое" ? "light" : "large",
+    className: dough.name === "Тонкое" ? "light" : "large",
+    value: dough.name === "Тонкое" ? "small" : "big",
   };
 };
 
@@ -26,7 +27,7 @@ export const normalizeSizes = (size) => {
 export const normalizeSauces = (sauce) => {
   return {
     ...sauce,
-    value: sauce.name === "Томатный" ? "sauce" : "creamy",
+    value: sauce.name === "Томатный" ? "tomato" : "creamy",
   };
 };
 
@@ -69,5 +70,6 @@ export const normalizeIngredients = (ingredient) => {
   return {
     ...ingredient,
     value: getValue(),
+    count: 0,
   };
 };
