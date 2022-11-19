@@ -2,7 +2,6 @@
   <div class="content__ingredients">
     <div class="sheet">
       <h2 class="title title--small sheet__title">Выберите ингредиенты</h2>
-
       <div class="sheet__content ingredients">
         <div class="ingredients__sauce">
           <p>Основной соус:</p>
@@ -13,13 +12,11 @@
             :label="sauce.name"
             :value="sauce.value"
             :className="'radio ingredients__input'"
-            @input="setSauce(sauce)"
+            @input="$emit('setSauce', sauce)"
           />
         </div>
-
         <div class="ingredients__filling">
           <p>Начинка:</p>
-
           <ul class="ingredients__list">
             <li
               v-for="ingredient in ingredients"
@@ -35,7 +32,7 @@
 
               <ItemCounter
                 v-model="ingredient.count"
-                @setCount="(count) => setIngredient(count, ingredient)"
+                @setCount="$emit('setIngredient', ingredient)"
               />
             </li>
           </ul>
@@ -44,6 +41,7 @@
     </div>
   </div>
 </template>
+
 <script>
 import RadioButton from "@/common/components/RadioButton.vue";
 import SelectorItem from "@/common/components/SelectorItem";
@@ -56,24 +54,16 @@ export default {
   props: {
     ingredients: {
       type: Array,
-      require: true,
+      required: true,
     },
     sauces: {
       type: Array,
-      require: true,
-    },
-  },
-  methods: {
-    setSauce(sauce) {
-      this.$emit("setSauce", sauce);
-    },
-    setIngredient(count, ingredient) {
-      ingredient.count = count;
-      this.$emit("setIngredient", ingredient);
+      required: true,
     },
   },
 };
 </script>
+
 <style lang="scss" scoped>
 @import "~@/assets/scss//mixins/mixins.scss";
 @import "~@/assets/scss/layout/content.scss";

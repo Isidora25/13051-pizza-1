@@ -17,6 +17,7 @@
     </div>
   </div>
 </template>
+
 <script>
 import RadioButton from "@/common/components/RadioButton.vue";
 export default {
@@ -25,7 +26,7 @@ export default {
   props: {
     sizes: {
       type: Array,
-      require: true,
+      required: true,
     },
   },
   methods: {
@@ -35,6 +36,7 @@ export default {
   },
 };
 </script>
+
 <style lang="scss" scoped>
 @import "~@/assets/scss/layout/content.scss";
 @import "~@/assets/scss/layout/sheet.scss";

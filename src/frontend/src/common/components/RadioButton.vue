@@ -4,13 +4,15 @@
       :class="{ 'visually-hidden': isHidden }"
       type="radio"
       :name="name"
-      v-model="count"
+      :value="value"
+      @input="$emit('input', $event.target.value)"
     />
     <b v-if="isBoldLabel">{{ label }}</b>
     <span v-else>{{ label }}</span>
     <span v-if="description">{{ description }}</span>
   </label>
 </template>
+
 <script>
 export default {
   name: "RadioButton",
@@ -42,16 +44,6 @@ export default {
     isBoldLabel: {
       type: Boolean,
       default: false,
-    },
-  },
-  computed: {
-    count: {
-      get() {
-        return this.value;
-      },
-      set(newValue) {
-        this.$emit("input", newValue);
-      },
     },
   },
 };

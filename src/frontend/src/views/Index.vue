@@ -1,39 +1,37 @@
 <template>
-  <AppLayout>
-    <main class="content">
-      <form action="#" method="post">
-        <div class="content__wrapper">
-          <h1 class="title title--big">Конструктор пиццы</h1>
-          <BuilderDoughSelector :dough="dough" @setDough="selectDough" />
-          <BuilderSizeSelector :sizes="sizes" @setSize="selectSize" />
-          <BuilderIngredientsSelector
-            :ingredients="ingredients"
-            :sauces="sauces"
-            @setSauce="selectSauce"
+  <main class="content">
+    <form action="#" method="post">
+      <div class="content__wrapper">
+        <h1 class="title title--big">Конструктор пиццы</h1>
+        <BuilderDoughSelector :dough="dough" @setDough="selectDough" />
+        <BuilderSizeSelector :sizes="sizes" @setSize="selectSize" />
+        <BuilderIngredientsSelector
+          :ingredients="ingredients"
+          :sauces="sauces"
+          @setSauce="selectSauce"
+          @setIngredient="selectIngredients"
+        />
+        <div class="content__pizza">
+          <label class="input">
+            <span class="visually-hidden">Название пиццы</span>
+            <input
+              type="text"
+              name="pizza_name"
+              placeholder="Введите название пиццы"
+              v-model="pizza.name"
+            />
+          </label>
+          <BuilderPizzaView
+            :dough="pizza.dough.value"
+            :sauce="pizza.sauce.value"
+            :ingredients="pizza.ingredients"
             @setIngredient="selectIngredients"
           />
-          <div class="content__pizza">
-            <label class="input">
-              <span class="visually-hidden">Название пиццы</span>
-              <input
-                type="text"
-                name="pizza_name"
-                placeholder="Введите название пиццы"
-                v-model="pizza.name"
-              />
-            </label>
-            <BuilderPizzaView
-              :dough="pizza.dough.value"
-              :sauce="pizza.sauce.value"
-              :ingredients="pizza.ingredients"
-              @setIngredient="selectIngredients"
-            />
-            <BuilderPriceCounter :pizzaPrice="pizzaPrice" />
-          </div>
+          <BuilderPriceCounter :pizza="pizza" @addToCart="addToCart" />
         </div>
-      </form>
-    </main>
-  </AppLayout>
+      </div>
+    </form>
+  </main>
 </template>
 
 <script>
@@ -43,7 +41,6 @@ import BuilderSizeSelector from "@/modules/builder/components/BuilderSizeSelecto
 import BuilderIngredientsSelector from "@/modules/builder/components/BuilderIngredientsSelector.vue";
 import BuilderPriceCounter from "@/modules/builder/components/BuilderPriceCounter.vue";
 import BuilderPizzaView from "@/modules/builder/components/BuilderPizzaView.vue";
-import AppLayout from "@/layouts/AppLayout.vue";
 import {
   normalizeDough,
   normalizeSizes,
@@ -59,7 +56,6 @@ export default {
     BuilderIngredientsSelector,
     BuilderPriceCounter,
     BuilderPizzaView,
-    AppLayout,
   },
   methods: {
     selectDough(dough) {
@@ -72,12 +68,18 @@ export default {
       this.pizza.sauce = sauce;
     },
     selectIngredients(ingredient) {
-      this.ingredients.map((item) => {
-        if (item.id === ingredient.id) item.count = ingredient.count;
+      this.ingredients.forEach((item) => {
+        if (item.id === ingredient.id) {
+          item.count = ingredient.count;
+        }
       });
       this.pizza.ingredients = this.ingredients.filter(
         (ingredient) => ingredient.count > 0
       );
+    },
+    addToCart(pizzaPrice) {
+      this.pizza.price = pizzaPrice;
+      this.$emit("addToCart", this.pizza);
     },
   },
   data() {
@@ -96,25 +98,15 @@ export default {
       },
     };
   },
-  computed: {
-    pizzaPrice: {
-      get() {
-        const ingredientsPrice = this.pizza.ingredients.reduce(
-          (previous, { count, price }) => previous + count * price,
-          0
-        );
-
-        return (
-          this.pizza.size.multiplier *
-            (this.pizza.dough.price +
-              this.pizza.sauce.price +
-              ingredientsPrice) || 0
-        );
-      },
-      set() {
-        return this.pizza.price;
-      },
-    },
+  mounted() {
+    this.pizza = {
+      name: "",
+      dough: this.dough[0],
+      size: this.sizes[0],
+      sauce: this.sauces[0],
+      ingredients: [],
+      price: 0,
+    };
   },
 };
 </script>

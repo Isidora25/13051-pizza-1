@@ -1,10 +1,5 @@
 <template>
-  <div
-    :draggable="true"
-    @dragstart.self="onDrag"
-    @dragover.prevent
-    @dragenter.prevent
-  >
+  <div draggable @dragstart.self="onDrag" @dragover.prevent @dragenter.prevent>
     <slot />
   </div>
 </template>

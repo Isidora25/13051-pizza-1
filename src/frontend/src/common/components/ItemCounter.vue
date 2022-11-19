@@ -16,7 +16,6 @@
         v-model.number="count"
         disabled
       />
-
       <button
         type="button"
         class="counter__button counter__button--plus"
@@ -28,6 +27,7 @@
     </div>
   </div>
 </template>
+
 <script>
 export default {
   name: "ItemCounter",
@@ -50,6 +50,7 @@ export default {
   },
 };
 </script>
+
 <style lang="scss" scoped>
 @import "~@/assets/scss//mixins/mixins.scss";
 @import "~@/assets/scss/blocks/ingredients.scss";

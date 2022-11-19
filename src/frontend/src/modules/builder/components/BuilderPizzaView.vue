@@ -11,6 +11,7 @@
     </div>
   </AppDrop>
 </template>
+
 <script>
 import AppDrop from "@/common/components/AppDrop";
 export default {
@@ -56,6 +57,7 @@ export default {
   },
 };
 </script>
+
 <style lang="scss" scoped>
 @import "~@/assets/scss/layout/content.scss";
 @import "~@/assets/scss/blocks/pizza.scss";

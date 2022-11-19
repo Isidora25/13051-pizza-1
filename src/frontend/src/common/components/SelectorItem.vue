@@ -1,6 +1,7 @@
 <template>
   <span :class="`filling filling--${value}`">{{ name }}</span>
 </template>
+
 <script>
 export default {
   name: "SelectorItem",

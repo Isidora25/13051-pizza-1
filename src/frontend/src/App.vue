@@ -1,32 +1,44 @@
 <template>
   <div id="app">
-    <div class="main">
-      <div class="main__wrapper">
-        <div class="main__header">
-          <img
-            src="@/assets/img/logo.svg"
-            width="300"
-            height="47"
-            alt="V!U!E! Pizza"
-          />
-        </div>
-        <h1>Добро пожаловать!</h1>
-        <p>
-          Это проект V!U!E! Pizza для обучения на профессиональном
-          онлайн‑курсе<br />
-          <b>«Vue.js для опытных разработчиков».</b>
-        </p>
-      </div>
-    </div>
+    <AppLayout :totalPrice="totalPrice">
+      <Index @addToCart="addToCart" />
+    </AppLayout>
   </div>
 </template>
 
 <script>
+import Index from "@/views/Index.vue";
+import AppLayout from "@/layouts/AppLayout.vue";
 export default {
   name: "App",
+  components: {
+    Index,
+    AppLayout,
+  },
+  data() {
+    return {
+      cart: {
+        pizzas: [],
+      },
+    };
+  },
+  methods: {
+    addToCart(pizza) {
+      this.cart.pizzas.push(pizza);
+    },
+  },
+  computed: {
+    totalPrice() {
+      return this.cart.pizzas.reduce(
+        (previous, { price }) => previous + price,
+        0
+      );
+    },
+  },
 };
 </script>
 
 <style lang="scss">
-@import "~@/assets/scss/app";
+@import "~@/assets/scss/libs/normalize.scss";
+@import "~@/assets/scss/fonts.scss";
 </style>
