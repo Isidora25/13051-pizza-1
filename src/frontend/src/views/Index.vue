@@ -3,11 +3,20 @@
     <form action="#" method="post">
       <div class="content__wrapper">
         <h1 class="title title--big">Конструктор пиццы</h1>
-        <BuilderDoughSelector :dough="dough" @setDough="selectDough" />
-        <BuilderSizeSelector :sizes="sizes" @setSize="selectSize" />
+        <BuilderDoughSelector
+          :dough="dough"
+          :selectedDoughId="pizza.dough.id"
+          @setDough="selectDough"
+        />
+        <BuilderSizeSelector
+          :sizes="sizes"
+          :selectedSizeId="pizza.size.id"
+          @setSize="selectSize"
+        />
         <BuilderIngredientsSelector
           :ingredients="ingredients"
           :sauces="sauces"
+          :selectedSauceId="pizza.sauce.id"
           @setSauce="selectSauce"
           @setIngredient="selectIngredients"
         />

@@ -6,6 +6,7 @@
       :name="name"
       :value="value"
       @input="$emit('input', $event.target.value)"
+      :checked="checked"
     />
     <b v-if="isBoldLabel">{{ label }}</b>
     <span v-else>{{ label }}</span>
@@ -27,6 +28,10 @@ export default {
     },
     label: {
       type: String,
+      required: true,
+    },
+    checked: {
+      type: Boolean,
       required: true,
     },
     description: {

@@ -13,6 +13,7 @@
           :label="doughItem.name"
           :value="doughItem.value"
           :description="doughItem.description"
+          :checked="doughItem.id === selectedDoughId"
           :className="`dough__input dough__input--${doughItem.className}`"
           @input="setDough(doughItem)"
         />
@@ -31,6 +32,10 @@ export default {
       type: Array,
       required: true,
     },
+    selectedDoughId: {
+      type: Number,
+      default: 0,
+    },
   },
   methods: {
     setDough(doughItem) {
@@ -43,4 +48,5 @@ export default {
 <style lang="scss" scoped>
 @import "~@/assets/scss/layout/content.scss";
 @import "~@/assets/scss/layout/sheet.scss";
+@import "~@/assets/scss/blocks/title.scss";
 </style>

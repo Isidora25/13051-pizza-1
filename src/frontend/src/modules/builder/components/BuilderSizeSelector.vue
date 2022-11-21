@@ -10,6 +10,7 @@
           :name="'size'"
           :label="size.name"
           :value="size.value"
+          :checked="size.id === selectedSizeId"
           :className="`diameter__input diameter__input--${size.value}`"
           @input="setSize(size)"
         />
@@ -28,6 +29,10 @@ export default {
       type: Array,
       required: true,
     },
+    selectedSizeId: {
+      type: Number,
+      default: 0,
+    },
   },
   methods: {
     setSize(size) {
@@ -40,4 +45,5 @@ export default {
 <style lang="scss" scoped>
 @import "~@/assets/scss/layout/content.scss";
 @import "~@/assets/scss/layout/sheet.scss";
+@import "~@/assets/scss/blocks/title.scss";
 </style>

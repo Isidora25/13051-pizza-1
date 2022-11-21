@@ -11,6 +11,7 @@
             :name="'sauce'"
             :label="sauce.name"
             :value="sauce.value"
+            :checked="sauce.id === selectedSauceId"
             :className="'radio ingredients__input'"
             @input="$emit('setSauce', sauce)"
           />
@@ -60,6 +61,10 @@ export default {
       type: Array,
       required: true,
     },
+    selectedSauceId: {
+      type: Number,
+      default: 0,
+    },
   },
 };
 </script>
@@ -71,4 +76,5 @@ export default {
 @import "~@/assets/scss/blocks/ingredients.scss";
 @import "~@/assets/scss/blocks/radio.scss";
 @import "~@/assets/scss/blocks/filling.scss";
+@import "~@/assets/scss/blocks/title.scss";
 </style>
