@@ -1,18 +1,16 @@
 <template>
   <div id="app">
-    <AppLayout :totalPrice="totalPrice">
-      <Index @addToCart="addToCart" />
+    <AppLayout :totalPrice="totalPrice" :showLogin="true">
+      <router-view @addToCart="addToCart" />
     </AppLayout>
   </div>
 </template>
 
 <script>
-import Index from "@/views/Index.vue";
 import AppLayout from "@/layouts/AppLayout.vue";
 export default {
   name: "App",
   components: {
-    Index,
     AppLayout,
   },
   data() {
