@@ -1,18 +1,16 @@
 <template>
   <div id="app">
-    <AppLayout :totalPrice="totalPrice" :showLogin="true">
+    <component :is="layout" :totalPrice="totalPrice" showLogin>
       <router-view @addToCart="addToCart" />
-    </AppLayout>
+    </component>
   </div>
 </template>
 
 <script>
-import AppLayout from "@/layouts/AppLayout.vue";
+const defaultLayout = "AppLayoutDefault";
+
 export default {
   name: "App",
-  components: {
-    AppLayout,
-  },
   data() {
     return {
       cart: {
@@ -31,6 +29,10 @@ export default {
         (previous, { price }) => previous + price,
         0
       );
+    },
+    layout() {
+      const layout = this.$route.meta.layout || defaultLayout;
+      return () => import(`@/layouts/${layout}.vue`);
     },
   },
 };

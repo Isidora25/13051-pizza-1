@@ -33,14 +33,14 @@
         </picture>
         <span>Василий Ложкин</span>
       </router-link>
-      <router-link to="/" class="header__logout"
-        ><span>Выйти</span></router-link
-      >
+      <router-link to="/" class="header__logout">
+        <span>Выйти</span>
+      </router-link>
     </div>
     <div v-else class="header__user">
-      <router-link to="/login" class="header__login"
-        ><span>Войти</span></router-link
-      >
+      <router-link to="/login" class="header__login">
+        <span>Войти</span>
+      </router-link>
     </div>
   </header>
 </template>
