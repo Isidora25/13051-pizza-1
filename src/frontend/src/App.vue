@@ -1,20 +1,16 @@
 <template>
   <div id="app">
-    <AppLayout :totalPrice="totalPrice">
-      <Index @addToCart="addToCart" />
-    </AppLayout>
+    <component :is="layout" :totalPrice="totalPrice" showLogin>
+      <router-view @addToCart="addToCart" />
+    </component>
   </div>
 </template>
 
 <script>
-import Index from "@/views/Index.vue";
-import AppLayout from "@/layouts/AppLayout.vue";
+const defaultLayout = "AppLayoutDefault";
+
 export default {
   name: "App",
-  components: {
-    Index,
-    AppLayout,
-  },
   data() {
     return {
       cart: {
@@ -33,6 +29,10 @@ export default {
         (previous, { price }) => previous + price,
         0
       );
+    },
+    layout() {
+      const layout = this.$route.meta.layout || defaultLayout;
+      return () => import(`@/layouts/${layout}.vue`);
     },
   },
 };
